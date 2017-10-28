@@ -22,27 +22,23 @@
 	createjs.Sound.registerSound("./sounds/tom.wav", 'tom');
 
 	// create sockets
-	var socket1 = new WebSocket('wss://api.gemini.com/v1/marketdata/btcusd')
-	var socket2 = new WebSocket('wss://api.gemini.com/v1/marketdata/ethusd')
-	var socket3 = new WebSocket('wss://api.gemini.com/v1/marketdata/ethbtc')
+	var btc_usd_socket = new WebSocket('wss://api.gemini.com/v1/marketdata/btcusd')
+	var eth_usd_socket = new WebSocket('wss://api.gemini.com/v1/marketdata/ethusd')
+	var eth_btc_socket = new WebSocket('wss://api.gemini.com/v1/marketdata/ethbtc')
 
-	socket1.onopen = () => {
-		socket.send({"type":"heartbeat","socket_sequence":30})
-		socket.send({type: 'trade'})
-	}
 
-	socket1.onmessage = (message) => {
-		createjs.Sound.play('kick');
-		document.getElementById('box').innerHTML = JSON.stringify(message.data)
-	}
-
-	socket2.onmessage = (message) => {
+	btc_usd_socket.onmessage = (message) => {
 		createjs.Sound.play('boom');
 		document.getElementById('box').innerHTML = JSON.stringify(message.data)
+	}
+
+	eth_usd_socket.onmessage = (message) => {
+		createjs.Sound.play('kick');
+		document.getElementById('box').innerHTML = JSON.stringify(message.data)
 
 	}
 
-	socket3.onmessage = (message) => {
+	eth_btc_socket.onmessage = (message) => {
 		createjs.Sound.play('hihat');
 		document.getElementById('box').innerHTML = JSON.stringify(message.data)
 	}
