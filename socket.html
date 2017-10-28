@@ -2,10 +2,31 @@
 <html>
 <head>
 	<title></title>
+	<style>
+		body{
+			background-color: #011627;
+			font-size: 250%;
+			word-wrap: break-word;
+			font: monospace;
+		}
+		#BTC_USD{
+			color: #2EC4B6;
+		}
+		#ETH_USD{
+			color: #FF9F1C;
+		}
+		#ETH_BTC{
+			color: #E71D36;
+		}
+	</style>
 </head>
 <body>
 
-<div id='box'></div>
+<div id='BTC_USD'></div>
+<hr>
+<div id='ETH_USD'></div>
+<hr>
+<div id='ETH_BTC'></div>
 
 <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script></head>
 <script type="text/javascript">
@@ -29,18 +50,18 @@
 
 	btc_usd_socket.onmessage = (message) => {
 		createjs.Sound.play('boom');
-		document.getElementById('box').innerHTML = JSON.stringify(message.data)
+		document.getElementById('BTC_USD').innerHTML = `BTC_USD <br> ${JSON.stringify(message.data)}`
 	}
 
 	eth_usd_socket.onmessage = (message) => {
 		createjs.Sound.play('kick');
-		document.getElementById('box').innerHTML = JSON.stringify(message.data)
+		document.getElementById('ETH_USD').innerHTML = `ETH_USD <br> ${JSON.stringify(message.data)}`
 
 	}
 
 	eth_btc_socket.onmessage = (message) => {
 		createjs.Sound.play('hihat');
-		document.getElementById('box').innerHTML = JSON.stringify(message.data)
+		document.getElementById('ETH_BTC').innerHTML = `ETH_BTC <br> ${JSON.stringify(message.data)}`
 	}
 
 
