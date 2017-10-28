@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<div id='box'></div>
+
+<script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script></head>
+<script type="text/javascript">
+
+	// load the sounds: https://github.com/wesbos/JavaScript30/tree/master/01%20-%20JavaScript%20Drum%20Kit/sounds
+	createjs.Sound.registerSound("./sounds/boom.wav", 'boom');
+	createjs.Sound.registerSound("./sounds/clap.wav", 'clap');
+	createjs.Sound.registerSound("./sounds/hihat.wav", 'hihat');
+	createjs.Sound.registerSound("./sounds/kick.wav", 'kick');
+	createjs.Sound.registerSound("./sounds/openhat.wav", 'openhat');
+	createjs.Sound.registerSound("./sounds/ride.wav", 'ride');
+	createjs.Sound.registerSound("./sounds/snare.wav", 'snare');
+	createjs.Sound.registerSound("./sounds/tink.wav", 'tink');
+	createjs.Sound.registerSound("./sounds/tom.wav", 'tom');
+
+	// create sockets
+	var socket1 = new WebSocket('wss://api.gemini.com/v1/marketdata/btcusd')
+	var socket2 = new WebSocket('wss://api.gemini.com/v1/marketdata/ethusd')
+	var socket3 = new WebSocket('wss://api.gemini.com/v1/marketdata/ethbtc')
+
+	socket1.onopen = () => {
+		socket.send({"type":"heartbeat","socket_sequence":30})
+		socket.send({type: 'trade'})
+	}
+
+	socket1.onmessage = (message) => {
+		createjs.Sound.play('kick');
+		document.getElementById('box').innerHTML = JSON.stringify(message.data)
+	}
+
+	socket2.onmessage = (message) => {
+		createjs.Sound.play('boom');
+		document.getElementById('box').innerHTML = JSON.stringify(message.data)
+
+	}
+
+	socket3.onmessage = (message) => {
+		createjs.Sound.play('hihat');
+		document.getElementById('box').innerHTML = JSON.stringify(message.data)
+	}
+
+
+</script>
+</body>
+</html>
